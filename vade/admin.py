@@ -1,8 +1,7 @@
 from django.contrib import admin
-from .models import User,UserMetrics
+from .models import User, UserMetrics
 from django.contrib.auth.admin import UserAdmin
 from datetime import datetime, timedelta
-
 
 
 # Register your models here.
@@ -19,14 +18,14 @@ class UserAdmin(UserAdmin):
 
     activate.short_description = 'activate a user'
 
-    def disactivate(self, request, queryset):
+    def deactivate(self, request, queryset):
         queryset.update(is_active=False)
 
-    disactivate.short_description = "Make a user inactive"
+    deactivate.short_description = "Make a user inactive"
 
 
 @admin.register(UserMetrics)
 class UserMetricAdmin(admin.ModelAdmin):
-    readonly_field = ['users_created_today', 'users_created_this_week','users_created_this_month']
-
+    list_display = ['today', 'this_week', 'this_month']
+    time_threshold = datetime.now() - timedelta(hours=24)
 
