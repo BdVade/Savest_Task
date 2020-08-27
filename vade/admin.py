@@ -27,9 +27,6 @@ class UserAdmin(UserAdmin):
 
 @admin.register(UserMetrics)
 class UserMetricAdmin(admin.ModelAdmin):
-    list_display = ['result']
+    readonly_field = ['users_created_today', 'users_created_this_week','users_created_this_month']
 
-    def daily_new_users(self,qs):
-        time_threshold = datetime.now() - timedelta(hours=24)
-        result = qs.objects.filter(date_joined__lt=time_threshold).count()
-        return result
+
