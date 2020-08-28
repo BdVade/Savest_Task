@@ -10,7 +10,7 @@ def staff_test(user):
     return user.is_staff
 
 
-@user_passes_test(staff_test)
+@user_passes_test(staff_test,'/admin')
 def email_view(request):
     if request.method == 'POST':
         form = EmailForm(request.POST)
